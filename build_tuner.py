@@ -1,14 +1,22 @@
 import kerastuner as kt 
 from build_net import builder
+from settings import project_name
+
+_project_name = project_name
 
 def tuner_builder_hyperband():
 
-    tuner = kt.Hyperband(hypermodel= builder, objective = "val_loss", max_epochs = 150, directory = "./tuner_data/sine_4")
+    global _project_name
+
+    tuner = kt.Hyperband(hypermodel= builder, objective = "val_loss", max_epochs = 150, directory = f"./tuner_data/{_project_name}")
 
     return tuner
 
 def tuner_builder_random():
-    tuner = kt.RandomSearch(hypermodel = builder , objective = "val_loss", max_trials=10, directory = "my_dir", )
+
+    global _project_name
+
+    tuner = kt.RandomSearch(hypermodel = builder , objective = "val_loss", max_trials=10, directory = f'./tuner_data/{_project_name}', )
 
     return tuner
 

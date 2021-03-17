@@ -6,7 +6,12 @@ from utils import split_sequence
 from utils import predictor
 from utils import accuracy
 from utils import total_return
+from settings import epochs
 import numpy as np
+
+#settings
+
+EPOCHS = epochs
 
 #constants
 
@@ -42,6 +47,8 @@ model.fit(x_train, y_train, epochs = 500, validation_data= (x_val, y_val))
 evaluation = model.evaluate(x_test, y_test)
 
 print("[test loss, test accuracy]:", evaluation)
+
+
 '''
 #forcasting on test data
 perioada = 5

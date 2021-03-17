@@ -1,17 +1,21 @@
 import numpy as np 
 from sklearn.preprocessing import MinMaxScaler
 from upload import data_upload_excell
+from settings import data_file_path, data_index_name
 
+path = data_file_path
+head = data_index_name
 
 def preprocessing():
 
+    global path, head
     #constants
     P_TRAIN = 0.6
     P_VAL = 0.2
     P_TEST = 0.2
     
     #data importing
-    data = data_upload_excell('./data/sine.xlsx', 'time')
+    data = data_upload_excell(path, head)
 
     #data indexing
     train_index = int(np.round(len(data) * P_TRAIN))

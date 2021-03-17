@@ -6,6 +6,7 @@ import numpy as np
 Upload from diffrent file type to a matrix
 
 Return a matrix 
+
 '''
 
 def data_upload_csv(path, index_col):
