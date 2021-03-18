@@ -1,5 +1,6 @@
 import subprocess
 import sys
+from system_pakage_req import SYSTEM_PAKAGE_REQ
 
 def system():
 
@@ -7,7 +8,7 @@ def system():
 
     system_pkg = subprocess.run('pip3 list', shell=True, capture_output=True, text=True).stdout
 
-    for pkg in ['numpy','pandas', 'matplotlib','seaborn','tensorflow','keras-tuner','scikit-learn','xlrd']:
+    for pkg in SYSTEM_PAKAGE_REQ:
         if pkg in system_pkg:
             print(pkg + ' '+'installed!')
         else:
@@ -43,6 +44,7 @@ def system():
         return True #Change the system state; used in main.py
     else:
         sys.exit('Execution interupted by user choice!')
+print(system())
 
 
 
