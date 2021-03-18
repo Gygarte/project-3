@@ -12,4 +12,4 @@ data_index_name = '' #insert the index column head name --string type
 multilayer = False 
 
 #for training your hypermodel
-epochs = #some number -- int type
+epochs = 0 #some number -- int type
