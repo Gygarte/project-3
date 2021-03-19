@@ -2,10 +2,13 @@
 import subprocess
 import sys
 #local imports
-from .system_package_req import SYSTEM_PACKAGE_REQ
+from .system_pkg_req import SYSTEM_PACKAGE_REQ
+from .venv_init import venv_init
+
 
 def system():
-
+    
+    venv_init()
     #Default state is False
 
     system_pkg = subprocess.run('pip3 list', shell=True, capture_output=True, text=True).stdout

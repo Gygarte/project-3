@@ -1,5 +1,4 @@
-#sys.path.append(os.path.join(os.path.dirname(__file__), '.'))
-
+#!./venv/bin/activate bash
 #standard library import
 import numpy as np
 import sys
@@ -17,6 +16,7 @@ from utils.utils import accuracy
 from utils.utils import total_return
 from settings.settings import epochs
 from system.system import system
+
 
 
 set_up = system()
