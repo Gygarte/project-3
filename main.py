@@ -1,18 +1,28 @@
-from sklearn.preprocessing import MinMaxScaler
-from build_tuner import tuner_builder_hyperband
-from callback import callback_builder
-from preparation import preprocessing
-from utils import split_sequence
-from utils import predictor
-from utils import accuracy
-from utils import total_return
-from settings import epochs
-from system import system
+#sys.path.append(os.path.join(os.path.dirname(__file__), '.'))
+
+#standard library import
 import numpy as np
+import sys
+import os
+#3rd-party library import
+from sklearn.preprocessing import MinMaxScaler
+#local library import
+from builders.build_tuner import tuner_builder_hyperband
+from builders.build_network import builder
+from builders.callback import callback_builder
+from processes.preparation import preprocessing
+from utils.utils import split_sequence
+from utils.utils import predictor
+from utils.utils import accuracy
+from utils.utils import total_return
+from settings.settings import epochs
+from system.system import system
+
 
 set_up = system()
 
 if set_up == True:
+    
     
     #settings
 
@@ -62,6 +72,7 @@ if set_up == True:
 
     accuracy = accuracy(predictions[:].tolist(),test[:perioada].tolist())
     return_of_strategy = total_return(predictions[:,0].tolist(),test[:perioada, 0].tolist())
+'''
 
-    '''
+   
 
