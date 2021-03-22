@@ -1,6 +1,8 @@
 #!./venv/bin/activate bash
 #standard library import
 import numpy as np
+import pandas as pd 
+import matplotlib.pyplot as plt
 import sys
 import os
 #3rd-party library import
@@ -10,6 +12,7 @@ from builders.build_tuner import tuner_builder_hyperband
 from builders.build_network import builder
 from builders.callback import callback_builder
 from processes.preparation import preprocessing
+from processes.forcast import forcast
 from utils.utils import split_sequence
 from utils.utils import predictor
 from utils.utils import accuracy
@@ -19,7 +22,8 @@ from system.system import system
 
 
 
-set_up = system()
+
+set_up = True #system()
 
 if set_up == True:
     
@@ -52,27 +56,27 @@ if set_up == True:
     print(f"""
     The hyperparameter search is complete. The optimal parameters are:
     --> units: {best_hp.get('units')}
-    --> _units: {best_hp.get('_units')}
     --> learning_rate: {best_hp.get('learning_rate')}
-    --> layers: {best_hp.get('layers')}
     """)
 
     model = tuner.hypermodel.build(best_hp)
-    model.fit(x_train, y_train, epochs = 500, validation_data= (x_val, y_val))
+    model.fit(x_train, y_train, epochs = 100, validation_data= (x_val, y_val))
     evaluation = model.evaluate(x_test, y_test)
 
     print("[test loss, test accuracy]:", evaluation)
+    
+    
+    forcast = forcast(model, x_test)
+    print(forcast)
+    data = {'Forcast':forcast, 'Real':y_test.reshape(len(y_test),)}
+    df = pd.DataFrame(data)
+    plt.plot(df)
+    plt.show()
+    
+    
 
 
-    '''
-    #forcasting on test data
-    perioada = 5
-    test = scaler.inverse_transform(scaled_test)
-    predictions = predictor(model, perioada, scaled_test, TIMESTEP)
-
-    accuracy = accuracy(predictions[:].tolist(),test[:perioada].tolist())
-    return_of_strategy = total_return(predictions[:,0].tolist(),test[:perioada, 0].tolist())
-'''
+    
 
    
 
