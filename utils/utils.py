@@ -22,7 +22,7 @@ def split_sequence(sequence, steps):
 def accuracy(predictions, test):
     _count = 0
     for index in range(len(predictions)):
-        if predictions[index] > 0 and test[index > 0]:
+        if predictions[index] > 0 and test[index] > 0:
             _count += 1
         if predictions[index] < 0 and test[index] < 0:
             _count += 1

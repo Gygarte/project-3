@@ -12,12 +12,16 @@ from builders.build_tuner import tuner_builder_hyperband
 from builders.build_network import builder
 from builders.callback import callback_builder
 from processes.preparation import preprocessing
+from processes.write_to_excell import write_to_excell
 from processes.forcast import forcast
 from utils.utils import split_sequence
 from utils.utils import predictor
 from utils.utils import accuracy
 from utils.utils import total_return
+from utils.utils import accuracy
+from utils.utils import total_return
 from settings.settings import epochs
+from settings.settings import project_name
 from system.system import system
 
 
@@ -60,20 +64,30 @@ if set_up == True:
     """)
 
     model = tuner.hypermodel.build(best_hp)
-    model.fit(x_train, y_train, epochs = 100, validation_data= (x_val, y_val))
+    model.fit(x_train, y_train, epochs = 500, validation_data= (x_val, y_val))
     evaluation = model.evaluate(x_test, y_test)
 
     print("[test loss, test accuracy]:", evaluation)
     
     
     forcast = forcast(model, x_test)
-    print(forcast)
-    data = {'Forcast':forcast, 'Real':y_test.reshape(len(y_test),)}
+    real = y_test.reshape(len(y_test))
+    
+    inversed_forcast = scaler.inverse_transform(forcast)
+    inversed_test = scaler.inverse_transform(y_test)
+    
+    _forcast = inversed_forcast.reshape(len(inversed_forcast))
+    real = inversed_test.reshape(len(inversed_test))
+    
+    _accuracy = accuracy(_forcast,real )
+    _total_return = total_return(_forcast, real)
+    
+    print(f'Follow the predictions made on test set, the accuracy = {_accuracy} and the total return = {_total_return}')
+    data = {'Forcast':_forcast, 'Real':real, 'Accuracy':_accuracy, 'Total Return':_total_return}
     df = pd.DataFrame(data)
-    plt.plot(df)
-    plt.show()
     
-    
+    #write the results in an excel file
+    write_to_excell('./results/results.xlsx', df, project_name)
 
 
     

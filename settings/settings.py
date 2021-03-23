@@ -4,9 +4,9 @@ Settings, so many setings!
 
 '''
 
-project_name = '' #insert a name -- string type
-data_file_path = '' #insert a path --string type
-data_index_name = '' #insert the index column head name --string type
+project_name = 'sine' #insert a name -- string type
+data_file_path = './data/sine.xlsx' #insert a path --string type
+data_index_name = 'time' #insert the index column head name --string type
 
 # is True if you want to use more layers 
 multilayer = False 
